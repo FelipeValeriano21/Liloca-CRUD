@@ -54,7 +54,9 @@
             <td><?php echo $telefone ?></td>
             <td><?php echo $endereco ?></td>
             <td><?php echo $cpf ?></td>
-            <td><button style="background-color:#FFD700">EDIT</button> <button style="background-color:#8B0000; color: white">EXCLUIR</button></td>
+            <td><a href="delete.php?id=<?=$dados['idCliente'];?>">[ Excluir ] </a>
+            
+          </td>
             
 
       
@@ -64,6 +66,7 @@
 </table>
 
 <a href="inserir.html"><button style="background-color:#228B22; color: white">Adicionar Cliente</button></a> 
+
 
 
 </main>
