@@ -54,8 +54,11 @@
             <td><?php echo $telefone ?></td>
             <td><?php echo $endereco ?></td>
             <td><?php echo $cpf ?></td>
-            <td><a href="delete.php?id=<?php echo $dados['idCliente']?>" class="btn btn-danger btn-sm">Delete</a> <a href="delete.php?txtid=<?php echo $dados['idCliente']?>" class="btn btn-warning btn-sm">Editar</a></td>
-            
+            <td>
+
+           <?php echo '<a class="btn btn-danger" href="delete.php?idCliente='.$dados['idCliente'].'">Delete</a> <a class="btn btn-warning" href="teste.php?idCliente='.$dados['idCliente'].'">Edite</a>'; ?>
+
+            </td>
 
       
           </tr> 

@@ -1,22 +1,30 @@
-<?php
+<?php 
 
-include 'conexao.php';
+include "conexao.php"; 
 
+if (isset($_GET['idCliente'])) {
 
-$txtid = isset($_GET['idCliente']);
+    $user_id = $_GET['idCliente'];
 
+    $sql = "DELETE FROM cliente WHERE idCliente =  ' $user_id' ";
 
+     $result = $conn->query($sql);
 
-$sql = "DELETE from  cliente where idCliente = '$txtid';";
-if (mysqli_query($conn, $sql)) {
-      echo "Registro excluido com sucesso ";
-            echo $txtid; 
+     if ($result == TRUE) {
 
-} else {
-      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        echo "Record deleted successfully.";
+        header("Location: consulta.php");
 
-}
+    } else{
 
-mysqli_close($conn);
+      echo "Nao foi";
+
+    }
+
+}else{
+
+      echo "ta vazio";
+
+} 
 
 ?>

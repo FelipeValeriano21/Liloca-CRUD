@@ -1,69 +1,64 @@
-
 <?php 
 
-include "config.php";
+include "conexao.php";
 
-    if (isset($_POST['update'])) {
+if (isset($_POST['update'])) {
 
-        $firstname = $_POST['firstname'];
+    $txtid = $_POST['idCliente'];
+    $txtnome = $_POST['nome'];
+    $txtemail = $_POST['email'];
+    $txttelefone = $_POST['telefone'];
+    $txtendereco = $_POST['endereco'];
+    $txtcpf = $_POST['cpf'];
 
-        $user_id = $_POST['user_id'];
+      $sql = "UPDATE cliente SET nome ='$txtnome', email ='$txtemail', telefone ='$txttelefone', endereco ='$txtendereco', cpf ='$txtcpf' WHERE  idCliente ='$txtid';"; 
 
-        $lastname = $_POST['lastname'];
+      $result = $conn->query($sql); 
 
-        $email = $_POST['email'];
+      if ($result == TRUE) {
 
-        $password = $_POST['password'];
+          echo "Record updated successfully.";
+          header("Location: consulta.php");
 
-        $gender = $_POST['gender']; 
+      }else{
 
-        $sql = "UPDATE `users` SET `firstname`='$firstname',`lastname`='$lastname',`email`='$email',`password`='$password',`gender`='$gender' WHERE `id`='$user_id'"; 
+          echo "Error:" . $sql . "<br>" . $conn->error;
 
-        $result = $conn->query($sql); 
+          header("Location: consulta.php");
 
-        if ($result == TRUE) {
+      }
 
-            echo "Record updated successfully.";
+  } 
 
-        }else{
+  if (isset($_GET['idCliente'])) {
 
-            echo "Error:" . $sql . "<br>" . $conn->error;
+    $user_id = $_GET['idCliente']; 
 
-        }
-
-    } 
-
-if (isset($_GET['id'])) {
-
-    $user_id = $_GET['id']; 
-
-    $sql = "SELECT * FROM `users` WHERE `id`='$user_id'";
+    $sql = "SELECT * FROM cliente WHERE idCliente ='$user_id'";
 
     $result = $conn->query($sql); 
 
     if ($result->num_rows > 0) {        
 
-        while ($row = $result->fetch_assoc()) {
+        while ($dados = $result->fetch_assoc()) {
 
-            $first_name = $row['firstname'];
-
-            $lastname = $row['lastname'];
-
-            $email = $row['email'];
-
-            $password  = $row['password'];
-
-            $gender = $row['gender'];
-
-            $id = $row['id'];
+          $idCliente = $dados['idCliente'];
+          $nome = $dados['nome']; 
+          $email = $dados['email'];
+          $telefone = $dados['telefone'];
+          $endereco = $dados['endereco'];
+          $cpf = $dados['cpf'];
 
         } 
 
-    ?>
+        
 
+
+    ?>
 
 <!doctype html>
 <html lang="en">
+
   <head>
    
     <meta charset="utf-8">
@@ -76,7 +71,7 @@ if (isset($_GET['id'])) {
   </head>
   <body style = "background-color: #DDBB73">
 
- <header>
+<header>
     <h1>Editar Cliente - LILOCA</h1>
 </header> 
 
@@ -91,17 +86,17 @@ if (isset($_GET['id'])) {
         <h6 class="text-center" style="font-family:cursive">INFORME OS DADOS ABAIXO:        </h6>
         
     
-          <form class="row g-3 needs-validation" novalidate method="post" action="inserir.php">
+          <form class="row g-3 needs-validation" novalidate method="post" action="teste.php">
             <div class="col-md-2">
               <label for="validationCustom01" class="form-label">ID</label>
-              <input name="idCliente" id="idCliente" type="number" class="form-control" id="validationCustom01" value="" required>
+              <input name="idCliente" id="idCliente" type="number" class="form-control" id="validationCustom01" value="<?php echo $idCliente; ?>" required>
               <div class="valid-feedback">
               </div>
             </div>
 
             <div class="col-md-5">
                 <label for="validationCustom01" class="form-label">NOME</label>
-                <input name="nome" id="nome" type="text" class="form-control" id="validationCustom01" value="" required>
+                <input name="nome" id="nome" type="text" class="form-control" id="validationCustom01" value="<?php echo $nome; ?>" required>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -111,7 +106,7 @@ if (isset($_GET['id'])) {
               <label for="validationCustomUsername" class="form-label">E-MAIL</label>
               <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                <input name="email" id="email" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                <input name="email" id="email" value = "<?php echo $email; ?>" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
                 <div class="invalid-feedback">
                   Please choose a username.
                 </div>
@@ -119,7 +114,7 @@ if (isset($_GET['id'])) {
             </div>
             <div class="col-md-5">
               <label for="validationCustom03" class="form-label">TELEFONE</label>
-              <input name="telefone" id="telefone" type="number" class="form-control" id="validationCustom03" required>
+              <input value = "<?php echo $telefone; ?>" name="telefone" id="telefone" type="number" class="form-control" id="validationCustom03" required>
               <div class="invalid-feedback">
                 Please provide a valid city.
               </div>
@@ -127,7 +122,7 @@ if (isset($_GET['id'])) {
 
             <div class="col-md-5">
                 <label for="validationCustom03" class="form-label">ENDEREÇO</label>
-                <input name="endereco" id="endereco" type="text" class="form-control" id="validationCustom03" required>
+                <input value = "<?php echo $endereco; ?>" name="endereco" id="endereco" type="text" class="form-control" id="validationCustom03" required>
                 <div class="invalid-feedback">
                   Please provide a valid city.
                 </div>
@@ -135,20 +130,31 @@ if (isset($_GET['id'])) {
 
               <div class="col-md-5">
                 <label for="validationCustom03" class="form-label">CPF</label>
-                <input name="cpf" id="cpf" type="number" class="form-control" id="validationCustom03" required>
+                <input name="cpf" value = "<?php echo $cpf; ?>" id="cpf" type="number" class="form-control" id="validationCustom03" required>
                 <div class="invalid-feedback">
                   Please provide a valid city.
                 </div>
               </div>
             
-              <td> <a href="consulta.php"><input type="submit" name="Submit" id="Submit" value="Submit"></a><button style="background-color:#482d00; color: white; width: 200px">Voltar</button>  </td>
+              <td>   <input style="width: 200px; background-color: green; color: white" type="submit" value="Update" name="update">  </td>
             
-    
+              <a href="consulta.php"> <button style="background-color:#482d00; color: white; width: 200px">Voltar</button></a>
 </main>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 
-  </body>
+  </body> 
 </html>
+    <?php
+
+    } else{ 
+
+        header('Location: consulta.php');
+
+    } 
+
+}
+
+?> 
