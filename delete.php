@@ -1,9 +1,10 @@
 <?php
 
-require 'conexao.php';
+include 'conexao.php';
 
 
-$txtid = filter_input(INPUT_GET, 'idCliente');
+$txtid = isset($_GET['idCliente']);
+
 
 
 $sql = "DELETE from  cliente where idCliente = '$txtid';";

@@ -54,9 +54,7 @@
             <td><?php echo $telefone ?></td>
             <td><?php echo $endereco ?></td>
             <td><?php echo $cpf ?></td>
-            <td><a href="delete.php?id=<?=$dados['idCliente'];?>">[ Excluir ] </a>
-            
-          </td>
+            <td><a href="delete.php?id=<?php echo $dados['idCliente']?>" class="btn btn-danger btn-sm">Delete</a> <a href="delete.php?txtid=<?php echo $dados['idCliente']?>" class="btn btn-warning btn-sm">Editar</a></td>
             
 
       
