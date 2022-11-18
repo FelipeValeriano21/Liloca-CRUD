@@ -11,7 +11,7 @@ if (isset($_POST['update'])) {
     $txtendereco = $_POST['endereco'];
     $txtcpf = $_POST['cpf'];
 
-      $sql = "UPDATE cliente SET nome ='$txtnome', email ='$txtemail', telefone ='$txttelefone', endereco ='$txtendereco', cpf ='$txtcpf' WHERE  idCliente ='$txtid';"; 
+    $sql = "CALL editar_cliente ('$txtid', '$txtnome', '$txtemail', '$txttelefone', '$txtendereco', '$txtcpf')";
 
       $result = $conn->query($sql); 
 

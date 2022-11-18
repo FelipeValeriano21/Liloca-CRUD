@@ -6,7 +6,7 @@ if (isset($_GET['idCliente'])) {
 
     $user_id = $_GET['idCliente'];
 
-    $sql = "DELETE FROM cliente WHERE idCliente =  ' $user_id' ";
+    $sql = "CALL delete_cliente($user_id)";
 
      $result = $conn->query($sql);
 
@@ -14,6 +14,7 @@ if (isset($_GET['idCliente'])) {
 
         echo "Record deleted successfully.";
         header("Location: consulta.php");
+
 
     } else{
 

@@ -33,8 +33,10 @@
   <tbody>
       <?php 
       include 'conexao.php';
+
+      $procedure = "CALL consulta_clientes(@p0);";
       
-      $sql = mysqli_query($conn, "SELECT * FROM cliente") or die( 
+      $sql = mysqli_query($conn, $procedure) or die( 
         mysqli_error($conn) //caso haja um erro na consulta 
       );
 

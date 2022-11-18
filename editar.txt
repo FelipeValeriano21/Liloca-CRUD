@@ -1,0 +1,14 @@
+DELIMITER $$
+CREATE editar_cliente (IN txtid INT, IN txtnome VARCHAR(30), IN txtemail VARCHAR(30), IN txttelefone INT(11), IN txtendereco VARCHAR(30), IN txtcpf INT(11))
+BEGIN
+
+set @txtid = txtid;
+set @txttxtnome = txtnome;  
+set @txtemail = txtemail;  
+set @txttelefone = txttelefone;  
+set @txtendereco = txtendereco; 
+set @txtcpf = txtcpf; 
+
+update cliente set nome = txtnome , email = txtemail , telefone = txttelefone, endereco = txtendereco, cpf = txtcpf WHERE  idCliente = txtid
+END $$
+DELIMITER ;
